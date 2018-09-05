@@ -89,7 +89,7 @@ import * as angular from '../common/angular1';
  */
 export declare class UpgradeAdapter {
     private ng2AppModule;
-    private compilerOptions;
+    private compilerOptions?;
     private idPrefix;
     private downgradedComponents;
     private upgradedProviders;
@@ -274,7 +274,7 @@ export declare class UpgradeAdapter {
      * ```
      *
      * @param modules any AngularJS modules that the upgrade module should depend upon
-     * @returns an {@link UpgradeAdapterRef}, which lets you register a `ready()` callback to
+     * @returns an `UpgradeAdapterRef`, which lets you register a `ready()` callback to
      * run assertions once the Angular components are ready to test through AngularJS.
      */
     registerForNg1Tests(modules?: string[]): UpgradeAdapterRef;
@@ -395,7 +395,7 @@ export declare class UpgradeAdapter {
      * upgradeAdapter.declareNg1Module(['heroApp']);
      * ```
      */
-    private declareNg1Module(modules?);
+    private declareNg1Module;
 }
 /**
  * Use `UpgradeAdapterRef` to control a hybrid AngularJS / Angular application.

@@ -8,7 +8,7 @@
 export declare type Ng1Token = string;
 export declare type Ng1Expression = string | Function;
 export interface IAnnotatedFunction extends Function {
-    $inject?: Ng1Token[];
+    $inject?: ReadonlyArray<Ng1Token>;
 }
 export declare type IInjectable = (Ng1Token | Function)[] | IAnnotatedFunction;
 export declare type SingleOrListOrMap<T> = T | T[] | {
@@ -135,6 +135,7 @@ export declare type IAugmentedJQuery = Node[] & {
     isolateScope?: () => IScope;
     injector?: () => IInjectorService;
     remove?: () => void;
+    removeData?: () => void;
 };
 export interface IProvider {
     $get: IInjectable;
@@ -220,25 +221,40 @@ export interface INgModelController {
     $invalid: boolean;
     $name: string;
 }
+declare let angular: {
+    bootstrap: (e: Element, modules: (string | IInjectable)[], config?: IAngularBootstrapConfig) => IInjectorService;
+    module: (prefix: string, dependencies?: string[]) => IModule;
+    element: (e: string | Element | Document | IAugmentedJQuery) => IAugmentedJQuery;
+    version: {
+        major: number;
+    };
+    resumeBootstrap: () => void;
+    getTestability: (e: Element) => ITestabilityService;
+};
 /**
- * Resets the AngularJS library.
- *
- * Used when angularjs is loaded lazily, and not available on `window`.
- *
- * @stable
+ * @deprecated Use `setAngularJSGlobal` instead.
  */
 export declare function setAngularLib(ng: any): void;
 /**
- * Returns the current version of the AngularJS library.
- *
- * @stable
+ * @deprecated Use `getAngularJSGlobal` instead.
  */
 export declare function getAngularLib(): any;
-export declare const bootstrap: (e: Element, modules: (string | IAnnotatedFunction | (string | Function)[])[], config?: IAngularBootstrapConfig | undefined) => IInjectorService;
-export declare const module: (prefix: string, dependencies?: string[] | undefined) => IModule;
-export declare const element: (e: string | Element) => IAugmentedJQuery;
-export declare const resumeBootstrap: () => void;
-export declare const getTestability: (e: Element) => ITestabilityService;
-export declare const version: {
+/**
+ * Resets the AngularJS global.
+ *
+ * Used when AngularJS is loaded lazily, and not available on `window`.
+ */
+export declare function setAngularJSGlobal(ng: any): void;
+/**
+ * Returns the current AngularJS global.
+ */
+export declare function getAngularJSGlobal(): any;
+export declare const bootstrap: typeof angular.bootstrap;
+export declare const module: typeof angular.module;
+export declare const element: typeof angular.element;
+export declare const resumeBootstrap: typeof angular.resumeBootstrap;
+export declare const getTestability: typeof angular.getTestability;
+export declare let version: {
     major: number;
 };
+export {};
