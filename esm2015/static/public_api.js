@@ -1,15 +1,13 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package. allowing
- * Angular 1 and Angular 2+ to run side by side in the same application.
  */
 export { getAngularJSGlobal, getAngularLib, setAngularJSGlobal, setAngularLib } from './src/common/angular1';
 export { downgradeComponent } from './src/common/downgrade_component';

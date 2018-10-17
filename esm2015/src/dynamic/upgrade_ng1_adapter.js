@@ -338,12 +338,7 @@ class UpgradeNg1ComponentAdapter {
     /**
      * @return {?}
      */
-    ngOnDestroy() {
-        if (this.controllerInstance && isFunction(this.controllerInstance.$onDestroy)) {
-            this.controllerInstance.$onDestroy();
-        }
-        this.componentScope.$destroy();
-    }
+    ngOnDestroy() { this.helper.onDestroy(this.componentScope, this.controllerInstance); }
     /**
      * @param {?} name
      * @param {?} value

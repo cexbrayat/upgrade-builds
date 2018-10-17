@@ -1,4 +1,8 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -7,18 +11,26 @@
  */
 import { ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR as NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR } from '@angular/core';
 export class NgAdapterInjector {
+    /**
+     * @param {?} modInjector
+     */
     constructor(modInjector) {
         this.modInjector = modInjector;
     }
-    // When Angular locate a service in the component injector tree, the not found value is set to
-    // `NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR`. In such a case we should not walk up to the module
-    // injector.
-    // AngularJS only supports a single tree and should always check the module injector.
+    /**
+     * @param {?} token
+     * @param {?=} notFoundValue
+     * @return {?}
+     */
     get(token, notFoundValue) {
         if (notFoundValue === NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR) {
             return notFoundValue;
         }
         return this.modInjector.get(token, notFoundValue);
     }
+}
+if (false) {
+    /** @type {?} */
+    NgAdapterInjector.prototype.modInjector;
 }
 //# sourceMappingURL=util.js.map

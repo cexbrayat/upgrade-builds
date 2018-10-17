@@ -372,15 +372,19 @@ INgModelController.prototype.$name;
 function noNg() {
     throw new Error('AngularJS v1.x is not loaded!');
 }
+const ɵ0 = () => noNg();
 /** @type {?} */
-let angular = /** @type {?} */ ({
+const noNgElement = /** @type {?} */ ((ɵ0));
+noNgElement.cleanData = noNg;
+/** @type {?} */
+let angular = {
     bootstrap: noNg,
     module: noNg,
-    element: noNg,
-    version: undefined,
+    element: noNgElement,
+    version: /** @type {?} */ (undefined),
     resumeBootstrap: noNg,
     getTestability: noNg
-});
+};
 try {
     if (window.hasOwnProperty('angular')) {
         angular = (/** @type {?} */ (window)).angular;
@@ -427,11 +431,13 @@ export const bootstrap = (e, modules, config) => angular.bootstrap(e, modules, c
 /** @type {?} */
 export const module = (prefix, dependencies) => angular.module(prefix, dependencies);
 /** @type {?} */
-export const element = e => angular.element(e);
+export const element = /** @type {?} */ ((e => angular.element(e)));
+element.cleanData = nodes => angular.element.cleanData(nodes);
 /** @type {?} */
 export const resumeBootstrap = () => angular.resumeBootstrap();
 /** @type {?} */
 export const getTestability = e => angular.getTestability(e);
 /** @type {?} */
 export let version = angular.version;
+export { ɵ0 };
 //# sourceMappingURL=angular1.js.map

@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.4-a2418a9037
+ * @license Angular v7.0.0-rc.1-1c561a833c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -18,7 +18,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
-const VERSION = new Version('7.0.0-beta.4-a2418a9037');
+const VERSION = new Version('7.0.0-rc.1-1c561a833c');
 
 /**
  * @fileoverview added by tsickle
@@ -154,15 +154,19 @@ const VERSION = new Version('7.0.0-beta.4-a2418a9037');
 function noNg() {
     throw new Error('AngularJS v1.x is not loaded!');
 }
+const ɵ0 = () => noNg();
 /** @type {?} */
-let angular = /** @type {?} */ ({
+const noNgElement = /** @type {?} */ ((ɵ0));
+noNgElement.cleanData = noNg;
+/** @type {?} */
+let angular = {
     bootstrap: noNg,
     module: noNg,
-    element: noNg,
-    version: undefined,
+    element: noNgElement,
+    version: /** @type {?} */ (undefined),
     resumeBootstrap: noNg,
     getTestability: noNg
-});
+};
 try {
     if (window.hasOwnProperty('angular')) {
         angular = (/** @type {?} */ (window)).angular;
@@ -200,7 +204,8 @@ const bootstrap = (e, modules, config) => angular.bootstrap(e, modules, config);
 /** @type {?} */
 const module$1 = (prefix, dependencies) => angular.module(prefix, dependencies);
 /** @type {?} */
-const element = e => angular.element(e);
+const element = /** @type {?} */ ((e => angular.element(e)));
+element.cleanData = nodes => angular.element.cleanData(nodes);
 /** @type {?} */
 
 /** @type {?} */
@@ -783,6 +788,7 @@ function matchesSelector(el, selector) {
  * This helper function returns a factory function to be used for registering
  * an AngularJS wrapper directive for "downgrading" an Angular component.
  *
+ * \@usageNotes
  * ### Examples
  *
  * Let's assume that you have an Angular component called `ng2Heroes` that needs
@@ -960,6 +966,7 @@ function isThenable(obj) {
  * This helper function returns a factory function that provides access to the Angular
  * service identified by the `token` parameter.
  *
+ * \@usageNotes
  * ### Examples
  *
  * First ensure that the service to be downgraded is provided in an `NgModule`
@@ -1119,6 +1126,25 @@ class UpgradeHelper {
             template = /** @type {?} */ (UpgradeHelper.getTemplate(this.$injector, this.directive));
         }
         return this.compileHtml(template);
+    }
+    /**
+     * @param {?} $scope
+     * @param {?=} controllerInstance
+     * @return {?}
+     */
+    onDestroy($scope, controllerInstance) {
+        if (controllerInstance && isFunction(controllerInstance.$onDestroy)) {
+            controllerInstance.$onDestroy();
+        }
+        $scope.$destroy();
+        // Clean the jQuery/jqLite data on the component+child elements.
+        // Equivelent to how jQuery/jqLite invoke `cleanData` on an Element (this.element)
+        //  https://github.com/jquery/jquery/blob/e743cbd28553267f955f71ea7248377915613fd9/src/manipulation.js#L223
+        //  https://github.com/angular/angular.js/blob/26ddc5f830f902a3d22f4b2aab70d86d4d688c82/src/jqLite.js#L306-L312
+        // `cleanData` will invoke the AngularJS `$destroy` DOM event
+        //  https://github.com/angular/angular.js/blob/26ddc5f830f902a3d22f4b2aab70d86d4d688c82/src/Angular.js#L1911-L1924
+        element.cleanData([this.element]);
+        element.cleanData(this.element.querySelectorAll('*'));
     }
     /**
      * @return {?}
@@ -1644,12 +1670,7 @@ class UpgradeNg1ComponentAdapter {
     /**
      * @return {?}
      */
-    ngOnDestroy() {
-        if (this.controllerInstance && isFunction(this.controllerInstance.$onDestroy)) {
-            this.controllerInstance.$onDestroy();
-        }
-        this.componentScope.$destroy();
-    }
+    ngOnDestroy() { this.helper.onDestroy(this.componentScope, this.controllerInstance); }
     /**
      * @param {?} name
      * @param {?} value
@@ -1684,7 +1705,8 @@ let upgradeCount = 0;
  * 3. Bootstrapping of a hybrid Angular application which contains both of the frameworks
  *    coexisting in a single application.
  *
- * ## Mental Model
+ * \@usageNotes
+ * ### Mental Model
  *
  * When reasoning about how a hybrid application works it is useful to have a mental model which
  * describes what is happening and explains what is happening at the lowest level.
@@ -1785,7 +1807,8 @@ class UpgradeAdapter {
      * Angular Component. The adapter will bootstrap Angular component from within the
      * AngularJS template.
      *
-     * ## Mental Model
+     * \@usageNotes
+     * ### Mental Model
      *
      * 1. The component is instantiated by being listed in AngularJS template. This means that the
      *    host element is controlled by AngularJS, but the component's view will be controlled by
@@ -1797,7 +1820,7 @@ class UpgradeAdapter {
      *    by way of the `ControlValueAccessor` interface from \@angular/forms. Only components that
      *    implement this interface are eligible.
      *
-     * ## Supported Features
+     * ### Supported Features
      *
      * - Bindings:
      *   - Attribute: `<comp name="World">`
@@ -1850,13 +1873,14 @@ class UpgradeAdapter {
      * directive. The adapter will bootstrap AngularJS component from within the Angular
      * template.
      *
-     * ## Mental Model
+     * \@usageNotes
+     * ### Mental Model
      *
      * 1. The component is instantiated by being listed in Angular template. This means that the
      *    host element is controlled by Angular, but the component's view will be controlled by
      *    AngularJS.
      *
-     * ## Supported Features
+     * ### Supported Features
      *
      * - Bindings:
      *   - Attribute: `<comp name="World">`
@@ -1936,6 +1960,7 @@ class UpgradeAdapter {
      * Use this instead of `angular.mock.module()` to load the upgrade module into
      * the AngularJS testing injector.
      *
+     * \@usageNotes
      * ### Example
      *
      * ```
@@ -1992,6 +2017,7 @@ class UpgradeAdapter {
      * [`bootstrap`](https://docs.angularjs.org/api/ng/function/angular.bootstrap) method. Unlike
      * AngularJS, this bootstrap is asynchronous.
      *
+     * \@usageNotes
      * ### Example
      *
      * ```
@@ -2067,7 +2093,7 @@ class UpgradeAdapter {
     /**
      * Allows AngularJS service to be accessible from Angular.
      *
-     *
+     * \@usageNotes
      * ### Example
      *
      * ```
@@ -2110,7 +2136,7 @@ class UpgradeAdapter {
     /**
      * Allows Angular service to be accessible from AngularJS.
      *
-     *
+     * \@usageNotes
      * ### Example
      *
      * ```
@@ -2137,15 +2163,16 @@ class UpgradeAdapter {
      *
      * This method is automatically called by `bootstrap()` and `registerForNg1Tests()`.
      *
-     * @param {?=} modules The AngularJS modules that this upgrade module should depend upon.
-     * @return {?} The AngularJS upgrade module that is declared by this method
-     *
+     * \@usageNotes
      * ### Example
      *
      * ```
      * const upgradeAdapter = new UpgradeAdapter(MyNg2Module);
      * upgradeAdapter.declareNg1Module(['heroApp']);
      * ```
+     * @param {?=} modules The AngularJS modules that this upgrade module should depend upon.
+     * @return {?} The AngularJS upgrade module that is declared by this method
+     *
      */
     declareNg1Module(modules = []) {
         /** @type {?} */

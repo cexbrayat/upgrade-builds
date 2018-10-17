@@ -1,4 +1,8 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -7,7 +11,7 @@
  */
 import { INJECTOR_KEY } from './constants';
 /**
- * @description
+ * \@description
  *
  * A helper function to allow an Angular service to be accessible from AngularJS.
  *
@@ -17,38 +21,40 @@ import { INJECTOR_KEY } from './constants';
  * This helper function returns a factory function that provides access to the Angular
  * service identified by the `token` parameter.
  *
+ * \@usageNotes
  * ### Examples
  *
  * First ensure that the service to be downgraded is provided in an `NgModule`
  * that will be part of the upgrade application. For example, let's assume we have
  * defined `HeroesService`
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-heroes-service"}
+ * {\@example upgrade/static/ts/full/module.ts region="ng2-heroes-service"}
  *
  * and that we have included this in our upgrade app `NgModule`
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-module"}
+ * {\@example upgrade/static/ts/full/module.ts region="ng2-module"}
  *
  * Now we can register the `downgradeInjectable` factory function for the service
  * on an AngularJS module.
  *
- * {@example upgrade/static/ts/full/module.ts region="downgrade-ng2-heroes-service"}
+ * {\@example upgrade/static/ts/full/module.ts region="downgrade-ng2-heroes-service"}
  *
  * Inside an AngularJS component's controller we can get hold of the
  * downgraded service via the name we gave when downgrading.
  *
- * {@example upgrade/static/ts/full/module.ts region="example-app"}
+ * {\@example upgrade/static/ts/full/module.ts region="example-app"}
  *
- * @param token an `InjectionToken` that identifies a service provided from Angular.
+ * \@experimental
+ * @param {?} token an `InjectionToken` that identifies a service provided from Angular.
  *
- * @returns a [factory function](https://docs.angularjs.org/guide/di) that can be
+ * @return {?} a [factory function](https://docs.angularjs.org/guide/di) that can be
  * used to register the service on an AngularJS module.
  *
- * @experimental
  */
 export function downgradeInjectable(token) {
+    /** @type {?} */
     const factory = function (i) { return i.get(token); };
-    factory['$inject'] = [INJECTOR_KEY];
+    (/** @type {?} */ (factory))['$inject'] = [INJECTOR_KEY];
     return factory;
 }
 //# sourceMappingURL=downgrade_injectable.js.map

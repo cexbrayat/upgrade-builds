@@ -1,4 +1,8 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -10,7 +14,14 @@ import { $COMPILE, $INJECTOR, $PARSE, INJECTOR_KEY, LAZY_MODULE_REF, REQUIRE_INJ
 import { DowngradeComponentAdapter } from './downgrade_component_adapter';
 import { controllerKey, getComponentName, isFunction } from './util';
 /**
- * @description
+ * @record
+ * @template T
+ */
+function Thenable() { }
+/** @type {?} */
+Thenable.prototype.then;
+/**
+ * \@description
  *
  * A helper function that allows an Angular component to be used from AngularJS.
  *
@@ -20,68 +31,75 @@ import { controllerKey, getComponentName, isFunction } from './util';
  * This helper function returns a factory function to be used for registering
  * an AngularJS wrapper directive for "downgrading" an Angular component.
  *
+ * \@usageNotes
  * ### Examples
  *
  * Let's assume that you have an Angular component called `ng2Heroes` that needs
  * to be made available in AngularJS templates.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-heroes"}
+ * {\@example upgrade/static/ts/full/module.ts region="ng2-heroes"}
  *
  * We must create an AngularJS [directive](https://docs.angularjs.org/guide/directive)
  * that will make this Angular component available inside AngularJS templates.
  * The `downgradeComponent()` function returns a factory function that we
  * can use to define the AngularJS directive that wraps the "downgraded" component.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng2-heroes-wrapper"}
+ * {\@example upgrade/static/ts/full/module.ts region="ng2-heroes-wrapper"}
  *
- * @param info contains information about the Component that is being downgraded:
+ * \@experimental
+ * @param {?} info contains information about the Component that is being downgraded:
  *
  * * `component: Type<any>`: The type of the Component that will be downgraded
- * * `propagateDigest?: boolean`: Whether to perform {@link ChangeDetectorRef#detectChanges
+ * * `propagateDigest?: boolean`: Whether to perform {\@link ChangeDetectorRef#detectChanges
  *   change detection} on the component on every
  *   [$digest](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest). If set to `false`,
  *   change detection will still be performed when any of the component's inputs changes.
  *   (Default: true)
  *
- * @returns a factory function that can be used to register the component in an
+ * @return {?} a factory function that can be used to register the component in an
  * AngularJS module.
  *
- * @experimental
  */
 export function downgradeComponent(info) {
+    /** @type {?} */
     var directiveFactory = function ($compile, $injector, $parse) {
-        // When using `UpgradeModule`, we don't need to ensure callbacks to Angular APIs (e.g. change
-        // detection) are run inside the Angular zone, because `$digest()` will be run inside the zone
-        // (except if explicitly escaped, in which case we shouldn't force it back in).
-        // When using `downgradeModule()` though, we need to ensure such callbacks are run inside the
-        // Angular zone.
+        /** @type {?} */
         var needsNgZone = false;
+        /** @type {?} */
         var wrapCallback = function (cb) { return cb; };
+        /** @type {?} */
         var ngZone;
         return {
             restrict: 'E',
             terminal: true,
             require: [REQUIRE_INJECTOR, REQUIRE_NG_MODEL],
             link: function (scope, element, attrs, required) {
-                // We might have to compile the contents asynchronously, because this might have been
-                // triggered by `UpgradeNg1ComponentAdapterBuilder`, before the Angular templates have
-                // been compiled.
+                /** @type {?} */
                 var ngModel = required[1];
+                /** @type {?} */
                 var parentInjector = required[0];
+                /** @type {?} */
                 var ranAsync = false;
                 if (!parentInjector) {
-                    var lazyModuleRef = $injector.get(LAZY_MODULE_REF);
+                    /** @type {?} */
+                    var lazyModuleRef = /** @type {?} */ ($injector.get(LAZY_MODULE_REF));
                     needsNgZone = lazyModuleRef.needsNgZone;
-                    parentInjector = lazyModuleRef.injector || lazyModuleRef.promise;
+                    parentInjector = lazyModuleRef.injector || /** @type {?} */ (lazyModuleRef.promise);
                 }
+                /** @type {?} */
                 var doDowngrade = function (injector) {
+                    /** @type {?} */
                     var componentFactoryResolver = injector.get(ComponentFactoryResolver);
-                    var componentFactory = componentFactoryResolver.resolveComponentFactory(info.component);
+                    /** @type {?} */
+                    var componentFactory = /** @type {?} */ ((componentFactoryResolver.resolveComponentFactory(info.component)));
                     if (!componentFactory) {
                         throw new Error('Expecting ComponentFactory for: ' + getComponentName(info.component));
                     }
+                    /** @type {?} */
                     var injectorPromise = new ParentInjectorPromise(element);
+                    /** @type {?} */
                     var facade = new DowngradeComponentAdapter(element, attrs, scope, ngModel, injector, $injector, $compile, $parse, componentFactory, wrapCallback);
+                    /** @type {?} */
                     var projectableNodes = facade.compileContents();
                     facade.createComponent(projectableNodes);
                     facade.setupInputs(needsNgZone, info.propagateDigest);
@@ -94,6 +112,7 @@ export function downgradeComponent(info) {
                         scope.$evalAsync(function () { });
                     }
                 };
+                /** @type {?} */
                 var downgradeFn = !needsNgZone ? doDowngrade : function (injector) {
                     if (!ngZone) {
                         ngZone = injector.get(NgZone);
@@ -121,15 +140,28 @@ export function downgradeComponent(info) {
  * Synchronous promise-like object to wrap parent injectors,
  * to preserve the synchronous nature of Angular 1's $compile.
  */
-var ParentInjectorPromise = /** @class */ (function () {
+var /**
+ * Synchronous promise-like object to wrap parent injectors,
+ * to preserve the synchronous nature of Angular 1's $compile.
+ */
+ParentInjectorPromise = /** @class */ (function () {
     function ParentInjectorPromise(element) {
         this.element = element;
         this.injectorKey = controllerKey(INJECTOR_KEY);
         this.callbacks = [];
+        /** @type {?} */ ((
         // Store the promise on the element.
-        element.data(this.injectorKey, this);
+        element.data))(this.injectorKey, this);
     }
-    ParentInjectorPromise.prototype.then = function (callback) {
+    /**
+     * @param {?} callback
+     * @return {?}
+     */
+    ParentInjectorPromise.prototype.then = /**
+     * @param {?} callback
+     * @return {?}
+     */
+    function (callback) {
         if (this.injector) {
             callback(this.injector);
         }
@@ -137,19 +169,43 @@ var ParentInjectorPromise = /** @class */ (function () {
             this.callbacks.push(callback);
         }
     };
-    ParentInjectorPromise.prototype.resolve = function (injector) {
-        this.injector = injector;
+    /**
+     * @param {?} injector
+     * @return {?}
+     */
+    ParentInjectorPromise.prototype.resolve = /**
+     * @param {?} injector
+     * @return {?}
+     */
+    function (injector) {
+        this.injector = injector; /** @type {?} */
+        ((
         // Store the real injector on the element.
-        this.element.data(this.injectorKey, injector);
+        this.element.data))(this.injectorKey, injector);
         // Release the element to prevent memory leaks.
-        this.element = null;
+        this.element = /** @type {?} */ ((null));
         // Run the queued callbacks.
         this.callbacks.forEach(function (callback) { return callback(injector); });
         this.callbacks.length = 0;
     };
     return ParentInjectorPromise;
 }());
+if (false) {
+    /** @type {?} */
+    ParentInjectorPromise.prototype.injector;
+    /** @type {?} */
+    ParentInjectorPromise.prototype.injectorKey;
+    /** @type {?} */
+    ParentInjectorPromise.prototype.callbacks;
+    /** @type {?} */
+    ParentInjectorPromise.prototype.element;
+}
+/**
+ * @template T
+ * @param {?} obj
+ * @return {?}
+ */
 function isThenable(obj) {
-    return isFunction(obj.then);
+    return isFunction((/** @type {?} */ (obj)).then);
 }
 //# sourceMappingURL=downgrade_component.js.map

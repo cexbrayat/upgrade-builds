@@ -1,11 +1,14 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
 import { Injector, NgModule, NgZone, Testability } from '@angular/core';
 import * as angular from '../common/angular1';
 import { $$TESTABILITY, $DELEGATE, $INJECTOR, $INTERVAL, $PROVIDE, INJECTOR_KEY, LAZY_MODULE_REF, UPGRADE_MODULE_NAME } from '../common/constants';
@@ -13,7 +16,7 @@ import { controllerKey } from '../common/util';
 import { angular1Providers, setTempInjectorRef } from './angular1_providers';
 import { NgAdapterInjector } from './util';
 /**
- * @description
+ * \@description
  *
  * An `NgModule`, which you import to provide AngularJS core services,
  * and has an instance method used to bootstrap the hybrid upgrade application.
@@ -32,19 +35,19 @@ import { NgAdapterInjector } from './util';
  *    that it can be used in an AngularJS template. See `downgradeComponent`.
  * 3. Creation of an Angular root injector provider that wraps and exposes an AngularJS
  *    service so that it can be injected into an Angular context. See
- *    {@link UpgradeModule#upgrading-an-angular-1-service Upgrading an AngularJS service} below.
+ *    {\@link UpgradeModule#upgrading-an-angular-1-service Upgrading an AngularJS service} below.
  * 4. Creation of an AngularJS service that wraps and exposes an Angular injectable
  *    so that it can be injected into an AngularJS context. See `downgradeInjectable`.
  * 3. Bootstrapping of a hybrid Angular application which contains both of the frameworks
  *    coexisting in a single application.
  *
- * @usageNotes
+ * \@usageNotes
  *
  * ```ts
- * import {UpgradeModule} from '@angular/upgrade/static';
+ * import {UpgradeModule} from '\@angular/upgrade/static';
  * ```
  *
- * See also the {@link UpgradeModule#examples examples} below.
+ * See also the {\@link UpgradeModule#examples examples} below.
  *
  * ### Mental Model
  *
@@ -86,36 +89,36 @@ import { NgAdapterInjector } from './util';
  * This class is an `NgModule`, which you import to provide AngularJS core services,
  * and has an instance method used to bootstrap the hybrid upgrade application.
  *
- * #### Core AngularJS services
- * Importing this `NgModule` will add providers for the core
- * [AngularJS services](https://docs.angularjs.org/api/ng/service) to the root injector.
+ * * Core AngularJS services
+ *   Importing this `NgModule` will add providers for the core
+ *   [AngularJS services](https://docs.angularjs.org/api/ng/service) to the root injector.
  *
- * #### Bootstrap
- * The runtime instance of this class contains a {@link UpgradeModule#bootstrap `bootstrap()`}
- * method, which you use to bootstrap the top level AngularJS module onto an element in the
- * DOM for the hybrid upgrade app.
+ * * Bootstrap
+ *   The runtime instance of this class contains a {\@link UpgradeModule#bootstrap `bootstrap()`}
+ *   method, which you use to bootstrap the top level AngularJS module onto an element in the
+ *   DOM for the hybrid upgrade app.
  *
- * It also contains properties to access the {@link UpgradeModule#injector root injector}, the
- * bootstrap `NgZone` and the
- * [AngularJS $injector](https://docs.angularjs.org/api/auto/service/$injector).
+ *   It also contains properties to access the {\@link UpgradeModule#injector root injector}, the
+ *   bootstrap `NgZone` and the
+ *   [AngularJS $injector](https://docs.angularjs.org/api/auto/service/$injector).
  *
  * ### Examples
  *
- * Import the `UpgradeModule` into your top level {@link NgModule Angular `NgModule`}.
+ * Import the `UpgradeModule` into your top level {\@link NgModule Angular `NgModule`}.
  *
- * {@example upgrade/static/ts/full/module.ts region='ng2-module'}
+ * {\@example upgrade/static/ts/full/module.ts region='ng2-module'}
  *
  * Then inject `UpgradeModule` into your Angular `NgModule` and use it to bootstrap the top level
  * [AngularJS module](https://docs.angularjs.org/api/ng/type/angular.Module) in the
  * `ngDoBootstrap()` method.
  *
- * {@example upgrade/static/ts/full/module.ts region='bootstrap-ng1'}
+ * {\@example upgrade/static/ts/full/module.ts region='bootstrap-ng1'}
  *
  * Finally, kick off the whole process, by bootstraping your top level Angular `NgModule`.
  *
- * {@example upgrade/static/ts/full/module.ts region='bootstrap-ng2'}
+ * {\@example upgrade/static/ts/full/module.ts region='bootstrap-ng2'}
  *
- * {@a upgrading-an-angular-1-service}
+ * {\@a upgrading-an-angular-1-service}
  * ### Upgrading an AngularJS service
  *
  * There is no specific API for upgrading an AngularJS service. Instead you should just follow the
@@ -123,44 +126,47 @@ import { NgAdapterInjector } from './util';
  *
  * Let's say you have an AngularJS service:
  *
- * {@example upgrade/static/ts/full/module.ts region="ng1-text-formatter-service"}
+ * {\@example upgrade/static/ts/full/module.ts region="ng1-text-formatter-service"}
  *
  * Then you should define an Angular provider to be included in your `NgModule` `providers`
  * property.
  *
- * {@example upgrade/static/ts/full/module.ts region="upgrade-ng1-service"}
+ * {\@example upgrade/static/ts/full/module.ts region="upgrade-ng1-service"}
  *
  * Then you can use the "upgraded" AngularJS service by injecting it into an Angular component
  * or service.
  *
- * {@example upgrade/static/ts/full/module.ts region="use-ng1-upgraded-service"}
+ * {\@example upgrade/static/ts/full/module.ts region="use-ng1-upgraded-service"}
  *
- * @experimental
+ * \@experimental
  */
-let UpgradeModule = class UpgradeModule {
-    constructor(
-    /** The root `Injector` for the upgrade application. */
-    injector, 
-    /** The bootstrap zone for the upgrade application */
-    ngZone) {
+export class UpgradeModule {
+    /**
+     * @param {?} injector
+     * @param {?} ngZone
+     */
+    constructor(/** The root `Injector` for the upgrade application. */
+    injector, ngZone) {
         this.ngZone = ngZone;
         this.injector = new NgAdapterInjector(injector);
     }
     /**
      * Bootstrap an AngularJS application from this NgModule
-     * @param element the element on which to bootstrap the AngularJS application
-     * @param [modules] the AngularJS modules to bootstrap for this application
-     * @param [config] optional extra AngularJS bootstrap configuration
+     * @param {?} element the element on which to bootstrap the AngularJS application
+     * @param {?=} modules
+     * @param {?=} config
+     * @return {?}
      */
     bootstrap(element, modules = [], config /*angular.IAngularBootstrapConfig*/) {
+        /** @type {?} */
         const INIT_MODULE_NAME = UPGRADE_MODULE_NAME + '.init';
-        // Create an ng1 module to bootstrap
+        /** @type {?} */
         const initModule = angular
             .module(INIT_MODULE_NAME, [])
             .value(INJECTOR_KEY, this.injector)
             .factory(LAZY_MODULE_REF, [
             INJECTOR_KEY,
-            (injector) => ({ injector, needsNgZone: false })
+            (injector) => (/** @type {?} */ ({ injector, needsNgZone: false }))
         ])
             .config([
             $PROVIDE, $INJECTOR,
@@ -169,11 +175,14 @@ let UpgradeModule = class UpgradeModule {
                     $provide.decorator($$TESTABILITY, [
                         $DELEGATE,
                         (testabilityDelegate) => {
+                            /** @type {?} */
                             const originalWhenStable = testabilityDelegate.whenStable;
+                            /** @type {?} */
                             const injector = this.injector;
-                            // Cannot use arrow function below because we need the context
+                            /** @type {?} */
                             const newWhenStable = function (callback) {
                                 originalWhenStable.call(testabilityDelegate, function () {
+                                    /** @type {?} */
                                     const ng2Testability = injector.get(Testability);
                                     if (ng2Testability.isStable()) {
                                         callback();
@@ -192,9 +201,7 @@ let UpgradeModule = class UpgradeModule {
                     $provide.decorator($INTERVAL, [
                         $DELEGATE,
                         (intervalDelegate) => {
-                            // Wrap the $interval service so that setInterval is called outside NgZone,
-                            // but the callback is still invoked within it. This is so that $interval
-                            // won't block stability, which preserves the behavior from AngularJS.
+                            /** @type {?} */
                             let wrappedInterval = (fn, delay, count, invokeApply, ...pass) => {
                                 return this.ngZone.runOutsideAngular(() => {
                                     return intervalDelegate((...args) => {
@@ -206,7 +213,7 @@ let UpgradeModule = class UpgradeModule {
                                     }, delay, count, invokeApply, ...pass);
                                 });
                             };
-                            wrappedInterval['cancel'] = intervalDelegate.cancel;
+                            (/** @type {?} */ (wrappedInterval))['cancel'] = intervalDelegate.cancel;
                             return wrappedInterval;
                         }
                     ]);
@@ -219,41 +226,67 @@ let UpgradeModule = class UpgradeModule {
                 this.$injector = $injector;
                 // Initialize the ng1 $injector provider
                 setTempInjectorRef($injector);
-                this.injector.get($INJECTOR);
+                this.injector.get($INJECTOR); /** @type {?} */
+                ((
                 // Put the injector on the DOM, so that it can be "required"
-                angular.element(element).data(controllerKey(INJECTOR_KEY), this.injector);
+                angular.element(element).data))(controllerKey(INJECTOR_KEY), this.injector);
                 // Wire up the ng1 rootScope to run a digest cycle whenever the zone settles
                 // We need to do this in the next tick so that we don't prevent the bootup
                 // stabilizing
                 setTimeout(() => {
+                    /** @type {?} */
                     const $rootScope = $injector.get('$rootScope');
+                    /** @type {?} */
                     const subscription = this.ngZone.onMicrotaskEmpty.subscribe(() => $rootScope.$digest());
                     $rootScope.$on('$destroy', () => { subscription.unsubscribe(); });
                 }, 0);
             }
         ]);
+        /** @type {?} */
         const upgradeModule = angular.module(UPGRADE_MODULE_NAME, [INIT_MODULE_NAME].concat(modules));
-        // Make sure resumeBootstrap() only exists if the current bootstrap is deferred
-        const windowAngular = window['angular'];
+        /** @type {?} */
+        const windowAngular = (/** @type {?} */ (window))['angular'];
         windowAngular.resumeBootstrap = undefined;
         // Bootstrap the AngularJS application inside our zone
         this.ngZone.run(() => { angular.bootstrap(element, [upgradeModule.name], config); });
         // Patch resumeBootstrap() to run inside the ngZone
         if (windowAngular.resumeBootstrap) {
+            /** @type {?} */
             const originalResumeBootstrap = windowAngular.resumeBootstrap;
+            /** @type {?} */
             const ngZone = this.ngZone;
             windowAngular.resumeBootstrap = function () {
+                /** @type {?} */
                 let args = arguments;
                 windowAngular.resumeBootstrap = originalResumeBootstrap;
                 return ngZone.run(() => windowAngular.resumeBootstrap.apply(this, args));
             };
         }
     }
-};
-UpgradeModule = tslib_1.__decorate([
-    NgModule({ providers: [angular1Providers] }),
-    tslib_1.__metadata("design:paramtypes", [Injector,
-        NgZone])
-], UpgradeModule);
-export { UpgradeModule };
+}
+UpgradeModule.decorators = [
+    { type: NgModule, args: [{ providers: [angular1Providers] },] },
+];
+/** @nocollapse */
+UpgradeModule.ctorParameters = () => [
+    { type: Injector },
+    { type: NgZone }
+];
+if (false) {
+    /**
+     * The AngularJS `$injector` for the upgrade application.
+     * @type {?}
+     */
+    UpgradeModule.prototype.$injector;
+    /**
+     * The Angular Injector *
+     * @type {?}
+     */
+    UpgradeModule.prototype.injector;
+    /**
+     * The bootstrap zone for the upgrade application
+     * @type {?}
+     */
+    UpgradeModule.prototype.ngZone;
+}
 //# sourceMappingURL=upgrade_module.js.map

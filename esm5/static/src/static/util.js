@@ -1,4 +1,8 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -14,7 +18,17 @@ var NgAdapterInjector = /** @class */ (function () {
     // `NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR`. In such a case we should not walk up to the module
     // injector.
     // AngularJS only supports a single tree and should always check the module injector.
-    NgAdapterInjector.prototype.get = function (token, notFoundValue) {
+    /**
+     * @param {?} token
+     * @param {?=} notFoundValue
+     * @return {?}
+     */
+    NgAdapterInjector.prototype.get = /**
+     * @param {?} token
+     * @param {?=} notFoundValue
+     * @return {?}
+     */
+    function (token, notFoundValue) {
         if (notFoundValue === NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR) {
             return notFoundValue;
         }
@@ -23,4 +37,8 @@ var NgAdapterInjector = /** @class */ (function () {
     return NgAdapterInjector;
 }());
 export { NgAdapterInjector };
+if (false) {
+    /** @type {?} */
+    NgAdapterInjector.prototype.modInjector;
+}
 //# sourceMappingURL=util.js.map

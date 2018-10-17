@@ -1,4 +1,8 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -9,7 +13,9 @@ import { EventEmitter, ɵlooseIdentical as looseIdentical } from '@angular/core'
 import { $SCOPE } from '../common/constants';
 import { UpgradeHelper } from '../common/upgrade_helper';
 import { isFunction } from '../common/util';
+/** @type {?} */
 const NOT_SUPPORTED = 'NOT_SUPPORTED';
+/** @type {?} */
 const INITIAL_VALUE = {
     __UNINITIALIZED__: true
 };
@@ -21,31 +27,42 @@ class Bindings {
         this.propertyToOutputMap = {};
     }
 }
+if (false) {
+    /** @type {?} */
+    Bindings.prototype.twoWayBoundProperties;
+    /** @type {?} */
+    Bindings.prototype.twoWayBoundLastValues;
+    /** @type {?} */
+    Bindings.prototype.expressionBoundProperties;
+    /** @type {?} */
+    Bindings.prototype.propertyToOutputMap;
+}
 /**
- * @description
+ * \@description
  *
  * A helper class that allows an AngularJS component to be used from Angular.
  *
  * *Part of the [upgrade/static](api?query=upgrade%2Fstatic)
- * library for hybrid upgrade apps that support AoT compilation*
+ * library for hybrid upgrade apps that support AoT compilation.*
  *
  * This helper class should be used as a base class for creating Angular directives
  * that wrap AngularJS components that need to be "upgraded".
  *
+ * \@usageNotes
  * ### Examples
  *
  * Let's assume that you have an AngularJS component called `ng1Hero` that needs
  * to be made available in Angular templates.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng1-hero"}
+ * {\@example upgrade/static/ts/full/module.ts region="ng1-hero"}
  *
  * We must create a `Directive` that will make this AngularJS component
  * available inside Angular templates.
  *
- * {@example upgrade/static/ts/full/module.ts region="ng1-hero-wrapper"}
+ * {\@example upgrade/static/ts/full/module.ts region="ng1-hero-wrapper"}
  *
  * In this example you can see that we must derive from the `UpgradeComponent`
- * base class but also provide an {@link Directive `@Directive`} decorator. This is
+ * base class but also provide an {\@link Directive `\@Directive`} decorator. This is
  * because the AoT compiler requires that this information is statically available at
  * compile time.
  *
@@ -57,7 +74,7 @@ class Bindings {
  *   * the AngularJS name of the component (`ng1Hero`)
  *   * the `ElementRef` and `Injector` for the component wrapper
  *
- * @experimental
+ * \@experimental
  */
 export class UpgradeComponent {
     /**
@@ -65,11 +82,14 @@ export class UpgradeComponent {
      * Instead you should derive a new class from this one and call the super constructor
      * from the base class.
      *
-     * {@example upgrade/static/ts/full/module.ts region="ng1-hero-wrapper" }
+     * {\@example upgrade/static/ts/full/module.ts region="ng1-hero-wrapper" }
      *
      * * The `name` parameter should be the name of the AngularJS directive.
      * * The `elementRef` and `injector` parameters should be acquired from Angular by dependency
      *   injection into the base class constructor.
+     * @param {?} name
+     * @param {?} elementRef
+     * @param {?} injector
      */
     constructor(name, elementRef, injector) {
         this.name = name;
@@ -81,20 +101,24 @@ export class UpgradeComponent {
         this.$element = this.helper.$element;
         this.directive = this.helper.directive;
         this.bindings = this.initializeBindings(this.directive);
-        // We ask for the AngularJS scope from the Angular injector, since
-        // we will put the new component scope onto the new injector for each component
+        /** @type {?} */
         const $parentScope = injector.get($SCOPE);
         // QUESTION 1: Should we create an isolated scope if the scope is only true?
         // QUESTION 2: Should we make the scope accessible through `$element.scope()/isolateScope()`?
         this.$componentScope = $parentScope.$new(!!this.directive.scope);
         this.initializeOutputs();
     }
+    /**
+     * @return {?}
+     */
     ngOnInit() {
-        // Collect contents, insert and compile template
+        /** @type {?} */
         const attachChildNodes = this.helper.prepareTransclusion();
+        /** @type {?} */
         const linkFn = this.helper.compileTemplate();
-        // Instantiate controller
+        /** @type {?} */
         const controllerType = this.directive.controller;
+        /** @type {?} */
         const bindToController = this.directive.bindToController;
         if (controllerType) {
             this.controllerInstance = this.helper.buildController(controllerType, this.$componentScope);
@@ -105,7 +129,7 @@ export class UpgradeComponent {
         // Set up outputs
         this.bindingDestination = bindToController ? this.controllerInstance : this.$componentScope;
         this.bindOutputs();
-        // Require other controllers
+        /** @type {?} */
         const requiredControllers = this.helper.resolveAndBindRequiredControllers(this.controllerInstance);
         // Hook: $onChanges
         if (this.pendingChanges) {
@@ -118,20 +142,25 @@ export class UpgradeComponent {
         }
         // Hook: $doCheck
         if (this.controllerInstance && isFunction(this.controllerInstance.$doCheck)) {
-            const callDoCheck = () => this.controllerInstance.$doCheck();
+            /** @type {?} */
+            const callDoCheck = () => /** @type {?} */ ((this.controllerInstance.$doCheck))();
             this.unregisterDoCheckWatcher = this.$componentScope.$parent.$watch(callDoCheck);
             callDoCheck();
         }
-        // Linking
+        /** @type {?} */
         const link = this.directive.link;
-        const preLink = (typeof link == 'object') && link.pre;
-        const postLink = (typeof link == 'object') ? link.post : link;
+        /** @type {?} */
+        const preLink = (typeof link == 'object') && (/** @type {?} */ (link)).pre;
+        /** @type {?} */
+        const postLink = (typeof link == 'object') ? (/** @type {?} */ (link)).post : link;
+        /** @type {?} */
         const attrs = NOT_SUPPORTED;
+        /** @type {?} */
         const transcludeFn = NOT_SUPPORTED;
         if (preLink) {
             preLink(this.$componentScope, this.$element, attrs, requiredControllers, transcludeFn);
         }
-        linkFn(this.$componentScope, null, { parentBoundTranscludeFn: attachChildNodes });
+        linkFn(this.$componentScope, /** @type {?} */ ((null)), { parentBoundTranscludeFn: attachChildNodes });
         if (postLink) {
             postLink(this.$componentScope, this.$element, attrs, requiredControllers, transcludeFn);
         }
@@ -140,6 +169,10 @@ export class UpgradeComponent {
             this.controllerInstance.$postLink();
         }
     }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
     ngOnChanges(changes) {
         if (!this.bindingDestination) {
             this.pendingChanges = changes;
@@ -148,40 +181,59 @@ export class UpgradeComponent {
             this.forwardChanges(changes);
         }
     }
+    /**
+     * @return {?}
+     */
     ngDoCheck() {
+        /** @type {?} */
         const twoWayBoundProperties = this.bindings.twoWayBoundProperties;
+        /** @type {?} */
         const twoWayBoundLastValues = this.bindings.twoWayBoundLastValues;
+        /** @type {?} */
         const propertyToOutputMap = this.bindings.propertyToOutputMap;
         twoWayBoundProperties.forEach((propName, idx) => {
+            /** @type {?} */
             const newValue = this.bindingDestination[propName];
+            /** @type {?} */
             const oldValue = twoWayBoundLastValues[idx];
             if (!looseIdentical(newValue, oldValue)) {
+                /** @type {?} */
                 const outputName = propertyToOutputMap[propName];
-                const eventEmitter = this[outputName];
+                /** @type {?} */
+                const eventEmitter = (/** @type {?} */ (this))[outputName];
                 eventEmitter.emit(newValue);
                 twoWayBoundLastValues[idx] = newValue;
             }
         });
     }
+    /**
+     * @return {?}
+     */
     ngOnDestroy() {
         if (isFunction(this.unregisterDoCheckWatcher)) {
             this.unregisterDoCheckWatcher();
         }
-        if (this.controllerInstance && isFunction(this.controllerInstance.$onDestroy)) {
-            this.controllerInstance.$onDestroy();
-        }
-        this.$componentScope.$destroy();
+        this.helper.onDestroy(this.$componentScope, this.controllerInstance);
     }
+    /**
+     * @param {?} directive
+     * @return {?}
+     */
     initializeBindings(directive) {
+        /** @type {?} */
         const btcIsObject = typeof directive.bindToController === 'object';
-        if (btcIsObject && Object.keys(directive.scope).length) {
+        if (btcIsObject && Object.keys(/** @type {?} */ ((directive.scope))).length) {
             throw new Error(`Binding definitions on scope and controller at the same time is not supported.`);
         }
+        /** @type {?} */
         const context = (btcIsObject) ? directive.bindToController : directive.scope;
+        /** @type {?} */
         const bindings = new Bindings();
         if (typeof context == 'object') {
             Object.keys(context).forEach(propName => {
+                /** @type {?} */
                 const definition = context[propName];
+                /** @type {?} */
                 const bindingType = definition.charAt(0);
                 // QUESTION: What about `=*`? Ignore? Throw? Support?
                 switch (bindingType) {
@@ -201,6 +253,7 @@ export class UpgradeComponent {
                         bindings.propertyToOutputMap[propName] = propName;
                         break;
                     default:
+                        /** @type {?} */
                         let json = JSON.stringify(context);
                         throw new Error(`Unexpected mapping '${bindingType}' in '${json}' in '${this.name}' directive.`);
                 }
@@ -208,22 +261,35 @@ export class UpgradeComponent {
         }
         return bindings;
     }
+    /**
+     * @return {?}
+     */
     initializeOutputs() {
         // Initialize the outputs for `=` and `&` bindings
         this.bindings.twoWayBoundProperties.concat(this.bindings.expressionBoundProperties)
             .forEach(propName => {
+            /** @type {?} */
             const outputName = this.bindings.propertyToOutputMap[propName];
-            this[outputName] = new EventEmitter();
+            (/** @type {?} */ (this))[outputName] = new EventEmitter();
         });
     }
+    /**
+     * @return {?}
+     */
     bindOutputs() {
         // Bind `&` bindings to the corresponding outputs
         this.bindings.expressionBoundProperties.forEach(propName => {
+            /** @type {?} */
             const outputName = this.bindings.propertyToOutputMap[propName];
-            const emitter = this[outputName];
+            /** @type {?} */
+            const emitter = (/** @type {?} */ (this))[outputName];
             this.bindingDestination[propName] = (value) => emitter.emit(value);
         });
     }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
     forwardChanges(changes) {
         // Forward input changes to `bindingDestination`
         Object.keys(changes).forEach(propName => this.bindingDestination[propName] = changes[propName].currentValue);
@@ -231,5 +297,35 @@ export class UpgradeComponent {
             this.bindingDestination.$onChanges(changes);
         }
     }
+}
+if (false) {
+    /** @type {?} */
+    UpgradeComponent.prototype.helper;
+    /** @type {?} */
+    UpgradeComponent.prototype.$injector;
+    /** @type {?} */
+    UpgradeComponent.prototype.element;
+    /** @type {?} */
+    UpgradeComponent.prototype.$element;
+    /** @type {?} */
+    UpgradeComponent.prototype.$componentScope;
+    /** @type {?} */
+    UpgradeComponent.prototype.directive;
+    /** @type {?} */
+    UpgradeComponent.prototype.bindings;
+    /** @type {?} */
+    UpgradeComponent.prototype.controllerInstance;
+    /** @type {?} */
+    UpgradeComponent.prototype.bindingDestination;
+    /** @type {?} */
+    UpgradeComponent.prototype.pendingChanges;
+    /** @type {?} */
+    UpgradeComponent.prototype.unregisterDoCheckWatcher;
+    /** @type {?} */
+    UpgradeComponent.prototype.name;
+    /** @type {?} */
+    UpgradeComponent.prototype.elementRef;
+    /** @type {?} */
+    UpgradeComponent.prototype.injector;
 }
 //# sourceMappingURL=upgrade_component.js.map

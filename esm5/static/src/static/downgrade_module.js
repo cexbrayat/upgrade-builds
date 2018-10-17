@@ -1,4 +1,8 @@
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -12,10 +16,10 @@ import { isFunction } from '../common/util';
 import { angular1Providers, setTempInjectorRef } from './angular1_providers';
 import { NgAdapterInjector } from './util';
 /**
- * @description
+ * \@description
  *
  * A helper function for creating an AngularJS module that can bootstrap an Angular module
- * "on-demand" (possibly lazily) when a {@link downgradeComponent downgraded component} needs to be
+ * "on-demand" (possibly lazily) when a {\@link downgradeComponent downgraded component} needs to be
  * instantiated.
  *
  * *Part of the [upgrade/static](api?query=upgrade/static) library for hybrid upgrade apps that
@@ -31,20 +35,20 @@ import { NgAdapterInjector } from './util';
  *
  * `downgradeModule()` requires either an `NgModuleFactory` or a function:
  * - `NgModuleFactory`: If you pass an `NgModuleFactory`, it will be used to instantiate a module
- *   using `platformBrowser`'s {@link PlatformRef#bootstrapModuleFactory bootstrapModuleFactory()}.
+ *   using `platformBrowser`'s {\@link PlatformRef#bootstrapModuleFactory bootstrapModuleFactory()}.
  * - `Function`: If you pass a function, it is expected to return a promise resolving to an
- *   `NgModuleRef`. The function is called with an array of extra {@link StaticProvider Providers}
+ *   `NgModuleRef`. The function is called with an array of extra {\@link StaticProvider Providers}
  *   that are expected to be available from the returned `NgModuleRef`'s `Injector`.
  *
  * `downgradeModule()` returns the name of the created AngularJS wrapper module. You can use it to
  * declare a dependency in your main AngularJS module.
  *
- * {@example upgrade/static/ts/lite/module.ts region="basic-how-to"}
+ * {\@example upgrade/static/ts/lite/module.ts region="basic-how-to"}
  *
  * For more details on how to use `downgradeModule()` see
  * [Upgrading for Performance](guide/upgrade-performance).
  *
- * @usageNotes
+ * \@usageNotes
  *
  * Apart from `UpgradeModule`, you can use the rest of the `upgrade/static` helpers as usual to
  * build a hybrid application. Note that the Angular pieces (e.g. downgraded services) will not be
@@ -64,7 +68,7 @@ import { NgAdapterInjector } from './util';
  * `downgradeModule()` and `UpgradeModule` that affect the behavior of hybrid applications:
  *
  * 1. Unlike `UpgradeModule`, `downgradeModule()` does not bootstrap the main AngularJS module
- *    inside the {@link NgZone Angular zone}.
+ *    inside the {\@link NgZone Angular zone}.
  * 2. Unlike `UpgradeModule`, `downgradeModule()` does not automatically run a
  *    [$digest()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) when changes are
  *    detected in the Angular part of the application.
@@ -88,20 +92,26 @@ import { NgAdapterInjector } from './util';
  *   [scope.$apply(...)](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply) or
  *   [$rootScope.$digest()](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest).
  *
- *   You can manually trigger a change detection run in Angular using {@link NgZone#run
+ *   You can manually trigger a change detection run in Angular using {\@link NgZone#run
  *   ngZone.run(...)}.
  *
  * </div>
  *
- * @experimental
+ * \@experimental
+ * @template T
+ * @param {?} moduleFactoryOrBootstrapFn
+ * @return {?}
  */
 export function downgradeModule(moduleFactoryOrBootstrapFn) {
+    /** @type {?} */
     var LAZY_MODULE_NAME = UPGRADE_MODULE_NAME + '.lazy';
+    /** @type {?} */
     var bootstrapFn = isFunction(moduleFactoryOrBootstrapFn) ?
         moduleFactoryOrBootstrapFn :
         function (extraProviders) {
             return platformBrowser(extraProviders).bootstrapModuleFactory(moduleFactoryOrBootstrapFn);
         };
+    /** @type {?} */
     var injector;
     // Create an ng1 module to bootstrap.
     angular.module(LAZY_MODULE_NAME, [])
@@ -115,6 +125,7 @@ export function downgradeModule(moduleFactoryOrBootstrapFn) {
         $INJECTOR,
         function ($injector) {
             setTempInjectorRef($injector);
+            /** @type {?} */
             var result = {
                 needsNgZone: true,
                 promise: bootstrapFn(angular1Providers).then(function (ref) {

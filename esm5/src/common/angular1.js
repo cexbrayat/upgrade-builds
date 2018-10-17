@@ -372,15 +372,19 @@ INgModelController.prototype.$name;
 function noNg() {
     throw new Error('AngularJS v1.x is not loaded!');
 }
+var ɵ0 = function () { return noNg(); };
 /** @type {?} */
-var angular = /** @type {?} */ ({
+var noNgElement = /** @type {?} */ ((ɵ0));
+noNgElement.cleanData = noNg;
+/** @type {?} */
+var angular = {
     bootstrap: noNg,
     module: noNg,
-    element: noNg,
-    version: undefined,
+    element: noNgElement,
+    version: /** @type {?} */ (undefined),
     resumeBootstrap: noNg,
     getTestability: noNg
-});
+};
 try {
     if (window.hasOwnProperty('angular')) {
         angular = (/** @type {?} */ (window)).angular;
@@ -431,11 +435,13 @@ export var module = function (prefix, dependencies) {
     return angular.module(prefix, dependencies);
 };
 /** @type {?} */
-export var element = function (e) { return angular.element(e); };
+export var element = /** @type {?} */ ((function (e) { return angular.element(e); }));
+element.cleanData = function (nodes) { return angular.element.cleanData(nodes); };
 /** @type {?} */
 export var resumeBootstrap = function () { return angular.resumeBootstrap(); };
 /** @type {?} */
 export var getTestability = function (e) { return angular.getTestability(e); };
 /** @type {?} */
 export var version = angular.version;
+export { ɵ0 };
 //# sourceMappingURL=angular1.js.map
